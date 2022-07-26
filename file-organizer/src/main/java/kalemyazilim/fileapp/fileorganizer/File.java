@@ -1,6 +1,20 @@
 package kalemyazilim.fileapp.fileorganizer;
 
+import javax.persistence.*;
+
+@Entity//For Hibernate.
+@Table//For table in DB.
 public class File {
+    @Id
+    @SequenceGenerator(
+            name = "file_sequence",
+            sequenceName = "file_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "file_sequence"
+    )
     private Long Id;
     private String description;
     private String fileName;
