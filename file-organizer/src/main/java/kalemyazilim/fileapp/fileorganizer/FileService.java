@@ -2,8 +2,12 @@ package kalemyazilim.fileapp.fileorganizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /*Service is special type of @Component just for more readable.*/
@@ -35,5 +39,19 @@ public class FileService {
             throw new IllegalStateException("File with id "+fileId+" does not exists.");
         }
         fileRepository.deleteById(fileId);
+    }
+    @Transactional
+    public void updateFile(Long fileId, String description, String fileName) {
+        File file = fileRepository.findById(fileId).orElseThrow(() -> new IllegalStateException("File with "+fileId+" is not exists."));
+        if(fileName!=null && fileName.length()>0 && !Objects.equals(file.getFileName(),fileName)){
+            Optional<File> fileOptional = fileRepository.findFileByFileName(file.getFileName(),file.getUserId());
+            if(fileOptional.isPresent()){
+                throw new IllegalStateException("There is already a file with same name.");
+            }
+            file.setFileName(fileName);
+        }
+        if(description!=null && description.length()>0 && !Objects.equals(file.getDescription(),description)){
+            file.setDescription(description);
+        }
     }
 }

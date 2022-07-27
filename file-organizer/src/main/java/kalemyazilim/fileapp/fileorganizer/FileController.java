@@ -26,4 +26,11 @@ public class FileController {
     public void deleteFile(@PathVariable("fileId") Long fileId){
         fileService.deleteFile(fileId);
     }
+    @PutMapping(path = "{fileId}")
+    public void updateFile(
+            @PathVariable("fileId") Long fileId,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) String fileName) {
+        fileService.updateFile(fileId,description,fileName);
+    }
 }
