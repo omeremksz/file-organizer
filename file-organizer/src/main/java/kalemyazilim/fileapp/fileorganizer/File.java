@@ -18,16 +18,28 @@ public class File {
     private Long Id;
     private String description;
     private String fileName;
+    private Long userId;
 
     /*Empty Constructor*/
     public File() {
     }
     /*All Elements Included Constructor*/
-    public File(Long id, String description, String fileName) {
+
+    public File(Long id, String description, String fileName, Long userId) {
         Id = id;
         this.description = description;
         this.fileName = fileName;
+        this.userId = userId;
     }
+
+    /*All Elements Included Constructor without ID*/
+
+    public File(String description, String fileName, Long userId) {
+        this.description = description;
+        this.fileName = fileName;
+        this.userId = userId;
+    }
+
     /*Getter & Setter for all Elements*/
     public Long getId() {
         return Id;
@@ -53,12 +65,17 @@ public class File {
         this.fileName = fileName;
     }
 
+    public Long getUserId() {return userId;}
+
+    public void setUserId(Long userId) {this.userId = userId;}
+
     @Override
     public String toString() {
         return "File{" +
                 "Id=" + Id +
                 ", description='" + description + '\'' +
                 ", fileName='" + fileName + '\'' +
+                ", userId=" + userId +
                 '}';
     }
 }
