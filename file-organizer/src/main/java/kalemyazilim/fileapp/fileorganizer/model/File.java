@@ -1,9 +1,9 @@
-package kalemyazilim.fileapp.fileorganizer;
+package kalemyazilim.fileapp.fileorganizer.model;
 
 import javax.persistence.*;
 
 @Entity//For Hibernate.
-@Table//For table in DB.
+@Table(name = "file_table")//For table in DB.
 public class File {
     @Id
     @SequenceGenerator(
@@ -15,29 +15,32 @@ public class File {
             strategy = GenerationType.SEQUENCE,
             generator = "file_sequence"
     )
+    @Column(name = "fileId")
     private Long Id;
     private String description;
+    @Column(name = "fileName")
     private String fileName;
-    private Long userId;
+    @Column(name = "userName")
+    private String userName;
 
     /*Empty Constructor*/
     public File() {
     }
     /*All Elements Included Constructor*/
 
-    public File(Long id, String description, String fileName, Long userId) {
+    public File(Long id, String description, String fileName, String userName) {
         Id = id;
         this.description = description;
         this.fileName = fileName;
-        this.userId = userId;
+        this.userName = userName;
     }
 
     /*All Elements Included Constructor without ID*/
 
-    public File(String description, String fileName, Long userId) {
+    public File(String description, String fileName, String userName) {
         this.description = description;
         this.fileName = fileName;
-        this.userId = userId;
+        this.userName = userName;
     }
 
     /*Getter & Setter for all Elements*/
@@ -65,9 +68,9 @@ public class File {
         this.fileName = fileName;
     }
 
-    public Long getUserId() {return userId;}
+    public String getUserName() {return userName;}
 
-    public void setUserId(Long userId) {this.userId = userId;}
+    public void setUserId(Long userId) {this.userName = userName;}
 
     @Override
     public String toString() {
@@ -75,7 +78,9 @@ public class File {
                 "Id=" + Id +
                 ", description='" + description + '\'' +
                 ", fileName='" + fileName + '\'' +
-                ", userId=" + userId +
+                ", userName='" + userName + '\'' +
                 '}';
     }
+
+
 }

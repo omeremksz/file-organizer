@@ -1,5 +1,7 @@
-package kalemyazilim.fileapp.fileorganizer;
+package kalemyazilim.fileapp.fileorganizer.controller;
 
+import kalemyazilim.fileapp.fileorganizer.model.File;
+import kalemyazilim.fileapp.fileorganizer.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

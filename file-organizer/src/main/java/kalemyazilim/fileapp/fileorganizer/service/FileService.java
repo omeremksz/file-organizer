@@ -1,9 +1,9 @@
-package kalemyazilim.fileapp.fileorganizer;
+package kalemyazilim.fileapp.fileorganizer.service;
 
+import kalemyazilim.fileapp.fileorganizer.model.File;
+import kalemyazilim.fileapp.fileorganizer.repository.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -26,7 +26,7 @@ public class FileService {
 
     public void saveNewFile(File file) {
         //Casting both fileName and userId.
-        Optional<File> fileByFileName = fileRepository.findFileByFileName(file.getFileName(),file.getUserId());
+        Optional<File> fileByFileName = fileRepository.findFileByFileName(file.getFileName(),file.getUserName());
         if(fileByFileName.isPresent()){
             throw new IllegalStateException("There is already a file with same name.");
         }
@@ -44,7 +44,7 @@ public class FileService {
     public void updateFile(Long fileId, String description, String fileName) {
         File file = fileRepository.findById(fileId).orElseThrow(() -> new IllegalStateException("File with "+fileId+" is not exists."));
         if(fileName!=null && fileName.length()>0 && !Objects.equals(file.getFileName(),fileName)){
-            Optional<File> fileOptional = fileRepository.findFileByFileName(file.getFileName(),file.getUserId());
+            Optional<File> fileOptional = fileRepository.findFileByFileName(file.getFileName(),file.getUserName());
             if(fileOptional.isPresent()){
                 throw new IllegalStateException("There is already a file with same name.");
             }
