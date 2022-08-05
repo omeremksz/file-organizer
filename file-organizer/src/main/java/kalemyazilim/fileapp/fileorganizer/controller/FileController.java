@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
@@ -40,6 +41,12 @@ public class FileController {
                 .contentType(MediaType.parseMediaType(fileService.downloadById(fileId).getFileType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; originalFileName = " + fileService.downloadById(fileId).getOriginalFileName())
                 .body(new ByteArrayResource(fileService.downloadById(fileId).getData()));
+    }
+
+    //Get files of user by user's name.
+    @GetMapping(value = "/list/{userName}")
+    public List<FileModel> getFileByUserName(@PathVariable("userName") String userName){
+        return fileService.getFileByUserName(userName);
     }
 
     @PostMapping(value = "/save",consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })

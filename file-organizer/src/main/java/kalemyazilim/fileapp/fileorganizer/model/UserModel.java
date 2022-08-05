@@ -17,7 +17,7 @@ public class UserModel {
     )
     @Column(name = "userId")
     private Long Id;
-    @Column(name = "userName")
+    @Column(name = "userName", length = 20)
     private String userName;
     @Column(name = "userPassword")
     private String userPassword;

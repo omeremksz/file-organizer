@@ -14,6 +14,9 @@ public class UserService {
         this.userRepository = userRepository;
     }
     public UserModel loginUser(String userName, String userPassword){
+        if(!userRepository.findByUserNameAndUserPassword(userName, userPassword).isPresent()){
+            throw new IllegalStateException("Invalid user login!");
+        }
         return userRepository.findByUserNameAndUserPassword(userName, userPassword).orElse(null);
     }
 }
